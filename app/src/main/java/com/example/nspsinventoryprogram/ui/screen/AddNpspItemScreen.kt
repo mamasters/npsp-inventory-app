@@ -231,24 +231,6 @@ fun AddNpspItemScreen(
                         isError = estimatedPrice.isNotBlank() && estimatedPrice.toDoubleOrNull() == null
                     )
 
-                    // Need Checkbox
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Checkbox(
-                            checked = need == true,
-                            onCheckedChange = { isChecked ->
-                                need = if (isChecked) true else null
-                            }
-                        )
-                        Text(
-                            text = "This item is needed",
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
-
                     // Notes Field (Optional)
                     OutlinedTextField(
                         value = notes,
@@ -288,7 +270,7 @@ fun AddNpspItemScreen(
                                     vendorName = vendorName.trim(),
                                     programTieBack = programTieBack,
                                     estimatedUnitPrice = estimatedPrice.toDouble(),
-                                    need = need,
+                                   // need = need, Attribute removed from class
                                     notes = if (notes.isBlank()) null else notes.trim()
                                 )
 

@@ -13,7 +13,7 @@ data class NpspItem(
     val vendorName: String,
     val programTieBack: String,
     val estimatedUnitPrice: Double,
-    val need: Boolean?,
+   // val need: Boolean?, removed as no longer needed
     val notes: String?,
     val createdAt: Long = System.currentTimeMillis()
 )

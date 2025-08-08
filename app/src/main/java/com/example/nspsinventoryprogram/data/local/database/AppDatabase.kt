@@ -11,7 +11,7 @@ import com.example.nspsinventoryprogram.data.local.entity.NpspItem
 
 @Database (
     entities = [Book::class, NpspItem::class],
-    version = 4,
+    version = 7,
     exportSchema = false
 )
 

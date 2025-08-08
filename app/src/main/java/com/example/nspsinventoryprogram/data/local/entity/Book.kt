@@ -11,5 +11,6 @@ data class Book(
     val author: String,
     val associatedProgram: String,
     val estimatedUnitPrice: Double,
+    val totalQuantity: Int,
     val createdAt: Long = System.currentTimeMillis()
 )

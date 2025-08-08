@@ -56,6 +56,7 @@ fun AddBookScreen(
     var estimatedPrice by remember { mutableStateOf("") }
     var associatedProgram by remember { mutableStateOf("") }
     var programDropdownExpanded by remember { mutableStateOf(false) }
+    var quantity by remember { mutableStateOf("1") }
     var isLoading by remember { mutableStateOf(false) }
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -83,7 +84,10 @@ fun AddBookScreen(
             isbn.isNotBlank() &&
             estimatedPrice.isNotBlank() &&
             associatedProgram.isNotBlank() &&
-            estimatedPrice.toDoubleOrNull() != null
+            estimatedPrice.toDoubleOrNull() != null &&
+            quantity.isNotBlank() &&
+            quantity.toIntOrNull() != null &&
+            quantity.toInt() > 0
 
     Scaffold(
         topBar = {
@@ -213,6 +217,31 @@ fun AddBookScreen(
                             }
                         }
                     }
+
+                    // Quantity Field
+                    OutlinedTextField(
+                        value = quantity,
+                        onValueChange = { newValue ->
+                            // Allow empty for editing, or valid positive integers
+                            when {
+                                newValue.isEmpty() -> quantity = newValue
+                                newValue.all { it.isDigit() } && newValue.toIntOrNull() != null -> {
+                                    val intValue = newValue.toInt()
+                                    if (intValue <= 999) { // Optional: set max limit
+                                        quantity = newValue
+                                    }
+                                }
+                            }
+                        },
+                        label = { Text("Quantity") },
+                        modifier = Modifier.fillMaxWidth(),
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        isError = quantity.isEmpty() || quantity.toIntOrNull()?.let { it <= 0 } ?: true,
+                        supportingText = if (quantity.isEmpty() || quantity.toIntOrNull()?.let { it <= 0 } ?: true) {
+                            { Text("Please enter a valid quantity", color = MaterialTheme.colorScheme.error) }
+                        } else null
+                    )
                 }
             }
 
@@ -241,7 +270,8 @@ fun AddBookScreen(
                                     author = author.trim(),
                                     isbn = isbn.trim(),
                                     estimatedUnitPrice = estimatedPrice.toDouble(),
-                                    associatedProgram = associatedProgram
+                                    associatedProgram = associatedProgram,
+                                    totalQuantity = quantity.toInt() // Set default quantity to 1
                                 )
 
                                 bookRepository.insertBook(newBook)
