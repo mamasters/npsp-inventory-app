@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
@@ -72,7 +73,7 @@ fun NpspItemInventoryScreen(
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add,
+                    imageVector = Icons.Default.AddCircle,
                     contentDescription = "Add NPSP Item"
                 )
             }

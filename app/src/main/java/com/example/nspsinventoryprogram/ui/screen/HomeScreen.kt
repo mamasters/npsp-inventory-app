@@ -1,5 +1,6 @@
 package com.example.nspsinventoryprogram.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
@@ -45,6 +47,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -54,7 +57,7 @@ fun HomeScreen(
             text = "NPSP Inventory",
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 8.dp)
         )
@@ -62,7 +65,7 @@ fun HomeScreen(
         Text(
             text = "Management System",
             style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(bottom = 40.dp)
         )
@@ -78,7 +81,7 @@ fun HomeScreen(
                 subtitle = "Manage your book collection",
                 itemCount = books.size,
                 totalValue = books.sumOf { it.estimatedUnitPrice },
-                icon = Icons.Default.Menu,
+                icon = Icons.Default.Info,
                 onClick = onNavigateToBooks
             )
 

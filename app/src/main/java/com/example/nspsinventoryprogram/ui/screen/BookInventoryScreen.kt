@@ -1,5 +1,6 @@
 package com.example.nspsinventoryprogram.ui.screen
 
+import android.R.attr.onClick
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,11 +38,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.nspsinventoryprogram.data.local.entity.Book
 import com.example.nspsinventoryprogram.data.local.repository.BookRepository
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.ui.text.style.TextAlign
 
 enum class BookSortOption(val displayName: String) {
     TITLE_ASC("Title A-Z"),
@@ -79,38 +84,47 @@ fun BookInventoryScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "NSPS Book Inventory",
-                        fontWeight = FontWeight.Bold
+                        text = "Book Inventory",
+                        textAlign = TextAlign.Center,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.fillMaxWidth()
                     )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateHome) {
-                        Icon(
-                            imageVector = Icons.Default.Home,
-                            contentDescription = "Home"
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { showSortDialog = true }) {
-                        Icon(
-                            imageVector = Icons.Default.Menu,
-                            contentDescription = "Sort books"
-                        )
-                    }
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onAddBookClick,
-                containerColor = MaterialTheme.colorScheme.primary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Book"
-                )
-            }
+        bottomBar = {
+            BottomAppBar(
+                actions = {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = onNavigateHome) {
+                            Icon(
+                                Icons.Default.Home,
+                                contentDescription = "Home"
+                            )
+                        }
+                        IconButton(onClick = onAddBookClick) {
+                            Icon(
+                                imageVector = Icons.Default.AddCircle,
+                                contentDescription = "Add book",
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(40.dp)
+                            )
+                        }
+                        IconButton(onClick = { showSortDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "Sort books"
+                            )
+                        }
+                    }
+                }
+            )
         }
     ) { paddingValues ->
         Column(
@@ -299,6 +313,9 @@ private fun BookCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         onClick = onClick
     ) {
@@ -319,7 +336,7 @@ private fun BookCard(
             Text(
                 text = "by ${book.author}",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier.padding(top = 4.dp)
             )
 
@@ -358,7 +375,7 @@ private fun BookCard(
             Text(
                 text = "ISBN: ${book.isbn}",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier.padding(top = 8.dp)
             )
 
@@ -374,7 +391,7 @@ private fun BookCard(
                 Text(
                     text = "Quantity: ${book.totalQuantity}",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             }
         }

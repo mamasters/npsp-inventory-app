@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import com.example.nspsinventoryprogram.data.local.repository.BookRepository
 import com.example.nspsinventoryprogram.data.local.repository.NpspItemRepository
 import com.example.nspsinventoryprogram.ui.navigation.AppNavigation
+import com.example.nspsinventoryprogram.ui.theme.NSPSInventoryProgramTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
+            NSPSInventoryProgramTheme {
                 AppNavigation(
                     bookRepository = bookRepository,
                     npspItemRepository = npspItemRepository)
